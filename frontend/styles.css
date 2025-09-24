@@ -1,0 +1,105 @@
+/* ...existing code... */
+
+body {
+	font-family: 'Segoe UI', Arial, sans-serif;
+	background: #f7f9fa;
+	margin: 0;
+	color: #333;
+}
+.branding {
+	text-align: center;
+	background: linear-gradient(90deg, #b2f7ef, #f7cac9);
+	padding: 1.5em 0 1em 0;
+	position: relative;
+}
+.wand {
+	position: absolute;
+	left: 2em;
+	top: 1em;
+	width: 60px;
+	animation: float 2s infinite ease-in-out;
+}
+@keyframes float {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-15px); }
+}
+.wizard-img {
+	width: 80px;
+	border-radius: 50%;
+	border: 3px solid #e0c3fc;
+	background: #f7f9fa;
+}
+.subtitle {
+	font-size: 1.2em;
+	color: #5f9ea0;
+}
+.home {
+	max-width: 500px;
+	margin: 2em auto;
+	background: #e0f7fa;
+	border-radius: 16px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+	padding: 2em;
+}
+#start-form label {
+	margin-right: 0.5em;
+}
+#start-form select, #start-form button {
+	margin: 0.5em 0;
+	padding: 0.5em;
+	border-radius: 8px;
+	border: 1px solid #b2f7ef;
+}
+#start-form button {
+	background: #f7cac9;
+	color: #333;
+	font-weight: bold;
+	cursor: pointer;
+}
+#progress-btn {
+	background: #b2f7ef;
+	color: #333;
+	border: none;
+	border-radius: 8px;
+	padding: 0.5em 1em;
+	margin-top: 1em;
+	cursor: pointer;
+}
+.hidden {
+	display: none;
+}
+/* Level colors */
+.novice { background: #b2f7ef; }
+.intermediate { background: #f7cac9; }
+.proficient { background: #81ecec; }
+.expert { background: linear-gradient(90deg, #e0c3fc, #ffd700); }
+/* Level icons */
+.level-icon {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	vertical-align: middle;
+}
+.wizard-hat {
+	background: url('wizard-hat.png') no-repeat center/contain;
+}
+/* Progress stars */
+#progress {
+	max-width: 700px;
+	margin: 2em auto;
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+	padding: 2em;
+}
+.star {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin: 2px;
+	background: url('star.png') no-repeat center/contain;
+	opacity: 1;
+}
+.star.greyed {
+	opacity: 0.3;
+}
