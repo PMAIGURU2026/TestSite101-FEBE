@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VocabMaster - SAT Vocabulary Learning App</title>
+    
+    <!-- External Libraries -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-book-open"></i>
+                <span>VocabMaster</span>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-item active" data-view="dashboard">
+                    <i class="fas fa-home"></i> Dashboard
+                </button>
+                <button class="nav-item" data-view="practice">
+                    <i class="fas fa-dumbbell"></i> Practice
+                </button>
+                <button class="nav-item" data-view="progress">
+                    <i class="fas fa-chart-line"></i> Progress
+                </button>
+                <button class="nav-item" data-view="settings">
+                    <i class="fas fa-cog"></i> Settings
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Dashboard View -->
+            <section id="dashboard" class="view active">
+                <div class="welcome-section">
+                    <h1>Welcome to VocabMaster</h1>
+                    <p>Master 3,500 SAT vocabulary words through interactive learning</p>
+                </div>
+
+                <!-- Level Selection -->
+                <div class="level-selection">
+                    <h2>Choose Your Starting Level</h2>
+                    <div class="level-grid">
+                        <div class="level-card" data-level="beginner">
+                            <div class="level-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h3>Beginning</h3>
+                            <p>Words 1-875</p>
+                            <p class="level-desc">Start with fundamental vocabulary</p>
+                        </div>
+                        <div class="level-card" data-level="intermediate">
+                            <div class="level-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h3>Intermediate</h3>
+                            <p>Words 876-1750</p>
+                            <p class="level-desc">Build on your foundation</p>
+                        </div>
+                        <div class="level-card" data-level="advanced">
+                            <div class="level-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                            <h3>Advanced</h3>
+                            <p>Words 1751-2625</p>
+                            <p class="level-desc">Challenge yourself further</p>
+                        </div>
+                        <div class="level-card" data-level="expert">
+                            <div class="level-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <h3>Expert</h3>
+                            <p>Words 2626-3500</p>
+                            <p class="level-desc">Master the most difficult words</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Overview -->
+                <div class="progress-overview">
+                    <h2>Your Progress</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="words-learned">0</div>
+                            <div class="stat-label">Words Learned</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="accuracy-rate">0%</div>
+                            <div class="stat-label">Accuracy Rate</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="current-streak">0</div>
+                            <div class="stat-label">Current Streak</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="time-spent">0h</div>
+                            <div class="stat-label">Time Spent</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice View -->
+            <section id="practice" class="view">
+                <!-- Exercise Type Selection -->
+                <div class="exercise-selection" id="exercise-menu">
+                    <h2>Select Exercise Type</h2>
+                    <div class="exercise-grid">
+                        <button class="exercise-card" data-exercise="fill-blank">
+                            <i class="fas fa-edit"></i>
+                            <h3>Fill in the Blank</h3>
+                            <p>Complete sentences with the correct vocabulary word</p>
+                        </button>
+                        <button class="exercise-card" data-exercise="multiple-choice">
+                            <i class="fas fa-list-ul"></i>
+                            <h3>Multiple Choice</h3>
+                            <p>Select the correct definition from multiple options</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Fill in the Blank Exercise -->
+                <div class="exercise-container" id="fill-blank-exercise" style="display: none;">
+                    <div class="exercise-header">
+                        <button class="back-btn" id="back-to-exercises">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <div class="exercise-progress">
+                            <span id="question-counter">1 of 10</span>
+                        </div>
+                        <div class="exercise-score">
+                            Score: <span id="current-score">0</span>
+                        </div>
+                    </div>
+
+                    <div class="exercise-content">
+                        <div class="passage-container">
+                            <h3>Complete the passage:</h3>
+                            <p class="passage-text" id="passage-text">
+                                Loading passage...
+                            </p>
+                        </div>
+
+                        <div class="word-options" id="word-options">
+                            <!-- Word options will be populated by JavaScript -->
+                        </div>
+
+                        <div class="definition-tooltip" id="definition-tooltip">
+                            <div class="tooltip-content">
+                                <strong class="word-term"></strong>
+                                <p class="word-definition"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button class="btn btn-secondary" id="hint-btn">
+                            <i class="fas fa-lightbulb"></i> Hint
+                        </button>
+                        <button class="btn btn-primary" id="submit-answer" disabled>
+                            Submit Answer
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Multiple Choice Exercise -->
+                <div class="exercise-container" id="multiple-choice-exercise" style="display: none;">
+                    <div class="exercise-header">
+                        <button class="back-btn" id="back-to-exercises-mc">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <div class="exercise-progress">
+                            <span id="mc-question-counter">1 of 10</span>
+                        </div>
+                        <div class="exercise-score">
+                            Score: <span id="mc-current-score">0</span>
+                        </div>
+                    </div>
+
+                    <div class="exercise-content">
+                        <div class="question-container">
+                            <h3 id="mc-question">What does the word "<span id="target-word">example</span>" mean?</h3>
+                        </div>
+
+                        <div class="mc-options" id="mc-options">
+                            <!-- Multiple choice options will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button class="btn btn-secondary" id="mc-hint-btn">
+                            <i class="fas fa-lightbulb"></i> Show Context
+                        </button>
+                        <button class="btn btn-primary" id="mc-submit-answer" disabled>
+                            Submit Answer
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Modal -->
+                <div class="modal" id="results-modal">
+                    <div class="modal-content">
+                        <h2>Exercise Complete!</h2>
+                        <div class="results-summary">
+                            <div class="result-stat">
+                                <span class="result-number" id="final-score">0</span>
+                                <span class="result-label">Final Score</span>
+                            </div>
+                            <div class="result-stat">
+                                <span class="result-number" id="correct-answers">0</span>
+                                <span class="result-label">Correct Answers</span>
+                            </div>
+                            <div class="result-stat">
+                                <span class="result-number" id="accuracy-percentage">0%</span>
+                                <span class="result-label">Accuracy</span>
+                            </div>
+                        </div>
+                        <div class="modal-actions">
+                            <button class="btn btn-secondary" id="review-mistakes">Review Mistakes</button>
+                            <button class="btn btn-primary" id="practice-again">Practice Again</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress View -->
+            <section id="progress" class="view">
+                <h2>Learning Progress</h2>
+                
+                <div class="progress-details">
+                    <div class="level-progress">
+                        <h3>Level Progress</h3>
+                        <div class="level-bars">
+                            <div class="progress-bar-container">
+                                <div class="progress-label">
+                                    <span>Beginning</span>
+                                    <span id="beginner-progress">0/875</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="beginner-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-label">
+                                    <span>Intermediate</span>
+                                    <span id="intermediate-progress">0/875</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="intermediate-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-label">
+                                    <span>Advanced</span>
+                                    <span id="advanced-progress">0/875</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="advanced-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-label">
+                                    <span>Expert</span>
+                                    <span id="expert-progress">0/875</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="expert-fill" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <h3>Recent Activity</h3>
+                        <div id="activity-log">
+                            <!-- Activity items will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings View -->
+            <section id="settings" class="view">
+                <h2>Settings</h2>
+                
+                <div class="settings-grid">
+                    <div class="setting-group">
+                        <h3>Learning Preferences</h3>
+                        <div class="setting-item">
+                            <label for="words-per-session">Words per session:</label>
+                            <select id="words-per-session">
+                                <option value="5">5 words</option>
+                                <option value="10" selected>10 words</option>
+                                <option value="15">15 words</option>
+                                <option value="20">20 words</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="difficulty-adaptation">Adaptive difficulty:</label>
+                            <input type="checkbox" id="difficulty-adaptation" checked>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3>Data Management</h3>
+                        <div class="setting-actions">
+                            <button class="btn btn-secondary" id="export-progress">Export Progress</button>
+                            <button class="btn btn-danger" id="reset-progress">Reset All Progress</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    
+    <!-- Main Application Script -->
+    <script src="script.js"></script>
+</body>
+</html>
